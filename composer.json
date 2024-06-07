@@ -30,10 +30,10 @@
         }
     },
     "scripts": {
-        "start": "unset XDEBUG_SESSION;php -S localhost:8000 -t ./public",
-        "start:debug": "export XDEBUG_SESSION=1;php -S localhost:8000 -t ./public",
-        "test": "unset XDEBUG_SESSION;phpunit",
-        "test:debug": "export XDEBUG_SESSION=1;phpunit",
+        "start": "unset XDEBUG_SESSION;php artisan serve",
+        "start:debug": "export XDEBUG_SESSION=1;php artisan serve",
+        "test": "unset XDEBUG_SESSION;php artisan test",
+        "test:debug": "export XDEBUG_SESSION=1;php artisan test",
         "post-autoload-dump": [
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
             "@php artisan package:discover --ansi"
@@ -56,6 +56,7 @@
         }
     },
     "config": {
+        "process-timeout": 0,
         "optimize-autoloader": true,
         "preferred-install": "dist",
         "sort-packages": true,
