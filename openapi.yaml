@@ -1,0 +1,12 @@
+openapi: 3.0.0
+info:
+  title: 'My First API'
+  version: '0.1'
+paths:
+  /:
+    get:
+      description: 'Display a listing of games.'
+      operationId: 4bfea3a9eeeb0604de6a473088b567d7
+      responses:
+        '200':
+          description: OK

@@ -6,12 +6,12 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use SimpleXMLElement;
+use OpenApi\Attributes as OA;
 
 class IfdbController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    #[OA\Get(path: '/', description: 'Display a listing of games.')]
+    #[OA\Response(response: JsonResponse::HTTP_OK, description: 'OK')]
     public function index(Request $request): JsonResponse
     {
         $request->validate([
