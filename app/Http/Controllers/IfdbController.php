@@ -5,8 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
-use SimpleXMLElement;
 use OpenApi\Attributes as OA;
+use SimpleXMLElement;
 
 class IfdbController extends Controller
 {

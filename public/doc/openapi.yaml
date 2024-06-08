@@ -1,6 +1,6 @@
 openapi: 3.0.0
 info:
-  title: 'My First API'
+  title: 'IFDB FR API'
   version: '0.1'
 paths:
   /:

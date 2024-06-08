@@ -37,7 +37,7 @@
         "start:debug": "export XDEBUG_SESSION=1;php artisan serve",
         "test": "unset XDEBUG_SESSION;php artisan test",
         "test:debug": "export XDEBUG_SESSION=1;php artisan test",
-        "doc:api": "openapi app -o openapi.yaml",
+        "doc:api": "openapi app -o public/doc/openapi.yaml",
         "post-autoload-dump": [
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
             "@php artisan package:discover --ansi"
