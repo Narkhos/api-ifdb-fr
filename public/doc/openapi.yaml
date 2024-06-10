@@ -5,8 +5,95 @@ info:
 paths:
   /:
     get:
-      description: 'Display a listing of games.'
+      summary: 'Display a listing of games.'
       operationId: 4bfea3a9eeeb0604de6a473088b567d7
+      parameters:
+        -
+          name: searchfor
+          in: query
       responses:
         '200':
-          description: OK
+          description: 'successful operation'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GameList'
+        '404':
+          description: 'Not found.'
+        '422':
+          description: 'Unprocessable Entity.'
+  '/competitions/{id}':
+    get:
+      summary: 'List games in a given competition'
+      operationId: 67fc635e6abb7da4184af1b1dea87143
+      parameters:
+        -
+          name: id
+          in: path
+          required: true
+      responses:
+        '200':
+          description: 'successful operation'
+        '404':
+          description: 'Not found.'
+        '422':
+          description: 'Unprocessable Entity.'
+components:
+  schemas:
+    Game:
+      description: 'Game detail'
+      properties:
+        tuid:
+          type: string
+          example: rddap2p8rbqok2qb
+        title:
+          type: string
+          example: 'Deux pages avant la fin du monde'
+        link:
+          type: string
+          example: 'https://ifdb.org/viewgame?id=rddap2p8rbqok2qb'
+        author:
+          type: string
+          example: Narkhos
+        averageRating:
+          type: string
+          example: '4.5'
+        numRatings:
+          type: string
+          example: '2'
+        starRating:
+          type: string
+          example: '4.5'
+        hasCoverArt:
+          type: string
+          example: 'yes'
+        devsys:
+          type: string
+          example: Custom
+        published:
+          type: array
+          items:
+            properties:
+              machine:
+                type: string
+                format: date
+                example: '2023-01-31'
+              printable:
+                type: string
+                example: 'January 31, 2023'
+            type: object
+        coverArtLink:
+          type: string
+          example: 'https://ifdb.org/viewgame?id=rddap2p8rbqok2qb&coverart'
+      type: object
+    GameList:
+      description: 'Game list'
+      properties:
+        games:
+          properties:
+            game:
+              type: array
+              items:
+                $ref: '#/components/schemas/Game'
+          type: object
+      type: object
