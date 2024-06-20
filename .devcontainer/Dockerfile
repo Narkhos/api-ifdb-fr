@@ -5,7 +5,17 @@ RUN apt-get update \
     nano \
     unzip \
     git \
-    curl
+    curl \
+    zsh
+
+# Installer oh-my-zsh
+RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
+
+# Changer le shell par défaut en zsh
+RUN chsh -s $(which zsh)
+
+# Exposer le shell zsh
+CMD ["zsh"]
 
 RUN pecl install xdebug-3.3.2 \
 	&& docker-php-ext-enable xdebug
