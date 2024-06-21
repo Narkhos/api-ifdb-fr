@@ -28,6 +28,11 @@ Route::get(
 );
 
 Route::get(
+    '/competitions/{id}/ids',
+    [IfdbController::class, 'competitionEntriesIds']
+);
+
+Route::get(
     '/games/{id}',
     [IfdbController::class, 'gameDetail']
 );

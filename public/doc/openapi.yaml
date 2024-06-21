@@ -22,6 +22,22 @@ paths:
           description: 'Not found.'
         '422':
           description: 'Unprocessable Entity.'
+  '/competitions/{id}/ids':
+    get:
+      summary: 'List game ids in a given competition'
+      operationId: 68e7e5384d4bdf803169446d09eddb25
+      parameters:
+        -
+          name: id
+          in: path
+          required: true
+      responses:
+        '200':
+          description: 'successful operation'
+        '404':
+          description: 'Not found.'
+        '422':
+          description: 'Unprocessable Entity.'
   '/competitions/{id}':
     get:
       summary: 'List games in a given competition'

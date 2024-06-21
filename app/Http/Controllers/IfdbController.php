@@ -90,6 +90,47 @@ class IfdbController extends Controller
     }
 
     #[OA\Get(
+        path: "/competitions/{id}/ids",
+        summary: "List game ids in a given competition",
+        parameters: [
+            new OA\Parameter(
+                name: "id",
+                in: "path",
+                required: true
+            )
+        ],
+        responses: [
+            new OA\Response(
+                response: 200,
+                description: 'successful operation',
+            ),
+            new OA\Response(
+                response: '404',
+                description: 'Not found.'
+            ),
+            new OA\Response(
+                response: '422',
+                description: 'Unprocessable Entity.'
+            ),
+
+        ]
+    )]
+    public function competitionEntriesIds(Request $request, string $id): JsonResponse
+    {
+        $matches = [];
+        $result = Http::get('https://ifdb.org/viewcomp?id=' . $id);
+        $pattern = '/href="viewgame\?id=([a-zA-Z0-9]+)"/';
+        preg_match_all($pattern, $result->body(), $matches);
+        $listId = array_values(array_unique($matches[1]));
+
+        if (count($listId) === 0) {
+            abort(404, 'No entry found for comp ' . $id);
+        }
+
+        return response()->json($listId);
+    }
+
+    #[OA\Get(
         path: "/competitions/{id}",
         summary: "List games in a given competition",
         parameters: [
@@ -127,7 +168,17 @@ class IfdbController extends Controller
             abort(404, 'No entry found for comp ' . $id);
         }
 
-        return response()->json($listId);
+        $entries = [];
+        foreach($listId as $id) {
+            $game = Http::get('https://ifdb.org/search?xml&game&searchfor=tuid:"' . $id . '"');
+            $xmlGame = new SimpleXMLElement($game);
+            $xmlGame->rewind();
+            $arrayGame = json_decode(json_encode($xmlGame[0]->games->game), true);
+            $entries[] = $arrayGame;
+        }
+
+        // return response()->json($listId);
+        return response()->json($entries);
     }
 
     public function gameDetail(Request $request, string $id): JsonResponse
