@@ -1,0 +1,17 @@
+{
+    "build": {
+        "dockerfile": "Dockerfile"
+    },
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "bmewburn.vscode-intelephense-client",
+                "xdebug.php-debug"
+            ]
+        }
+    },
+    "runArgs": [
+        "--mount",
+        "type=bind,source=${localEnv:HOME}/.ssh,target=/root/.ssh,consistency=cached"
+    ]
+}
